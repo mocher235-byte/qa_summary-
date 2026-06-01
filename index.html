@@ -13,7 +13,6 @@
     --gold-light: #f0d88a;
     --cream: #faf6ef;
     --red: #c0392b;
-    --dark: #0f1929;
     --mid: #2e3f6e;
     --pending: #7a6a3a;
     --pending-bg: #fdf8ec;
@@ -21,325 +20,109 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background-color: var(--cream); font-family: 'Noto Sans TC', sans-serif; color: var(--navy); min-height: 100vh; }
 
-  body {
-    background-color: var(--cream);
-    font-family: 'Noto Sans TC', sans-serif;
-    color: var(--navy);
-    min-height: 100vh;
-  }
+  /* HEADER */
+  header { background: var(--navy); padding: 48px 24px 36px; text-align: center; position: relative; overflow: hidden; }
+  header::before { content:''; position:absolute; top:-60px; left:-60px; width:220px; height:220px; border-radius:50%; background:rgba(201,168,76,0.12); }
+  header::after { content:''; position:absolute; bottom:-80px; right:-40px; width:260px; height:260px; border-radius:50%; background:rgba(201,168,76,0.08); }
+  .header-tag { display:inline-block; background:var(--gold); color:var(--navy); font-size:11px; font-weight:700; letter-spacing:3px; padding:4px 14px; border-radius:2px; margin-bottom:16px; }
+  header h1 { font-family:'Noto Serif TC',serif; font-size:clamp(22px,5vw,32px); font-weight:900; color:#fff; line-height:1.4; margin-bottom:10px; position:relative; z-index:1; }
+  header h1 span { color:var(--gold); }
+  header p.subtitle { color:rgba(255,255,255,0.55); font-size:13px; letter-spacing:1px; position:relative; z-index:1; }
 
-  header {
-    background: var(--navy);
-    padding: 48px 24px 36px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  header::before {
-    content: '';
-    position: absolute;
-    top: -60px; left: -60px;
-    width: 220px; height: 220px;
-    border-radius: 50%;
-    background: rgba(201,168,76,0.12);
-  }
-  header::after {
-    content: '';
-    position: absolute;
-    bottom: -80px; right: -40px;
-    width: 260px; height: 260px;
-    border-radius: 50%;
-    background: rgba(201,168,76,0.08);
-  }
-  .header-tag {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--navy);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    padding: 4px 14px;
-    border-radius: 2px;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-  header h1 {
-    font-family: 'Noto Serif TC', serif;
-    font-size: clamp(22px, 5vw, 32px);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.4;
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 1;
-  }
-  header h1 span { color: var(--gold); }
-  header p.subtitle {
-    color: rgba(255,255,255,0.55);
-    font-size: 13px;
-    letter-spacing: 1px;
-    position: relative;
-    z-index: 1;
-  }
+  .notice { background:var(--red); color:#fff; text-align:center; padding:10px 20px; font-size:13px; font-weight:500; letter-spacing:0.5px; }
+  .notice strong { font-weight:700; }
 
-  .notice {
-    background: var(--red);
-    color: #fff;
-    text-align: center;
-    padding: 10px 20px;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-  .notice strong { font-weight: 700; }
+  /* NAV TABS */
+  .tab-nav { background:#fff; border-bottom:2px solid #ede8df; position:sticky; top:0; z-index:100; box-shadow:0 2px 8px rgba(26,39,68,0.07); }
+  .tab-nav-inner { max-width:760px; margin:0 auto; display:flex; overflow-x:auto; }
+  .tab-btn { flex-shrink:0; padding:14px 20px; font-size:13px; font-weight:600; color:#888; background:none; border:none; cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; letter-spacing:0.3px; font-family:'Noto Sans TC',sans-serif; transition:color 0.2s; white-space:nowrap; }
+  .tab-btn:hover { color:var(--navy); }
+  .tab-btn.active { color:var(--navy); border-bottom-color:var(--gold); }
 
-  main {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 40px 20px 80px;
-  }
+  /* TAB PANELS */
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
 
-  .section-label {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 28px;
-    margin-top: 48px;
-  }
-  .section-label:first-of-type { margin-top: 0; }
-  .section-num {
-    width: 36px; height: 36px;
-    background: var(--navy);
-    color: var(--gold);
-    font-family: 'Noto Serif TC', serif;
-    font-size: 15px;
-    font-weight: 900;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .section-title {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--navy);
-    border-bottom: 2px solid var(--gold);
-    padding-bottom: 4px;
-    flex: 1;
-  }
+  main { max-width:760px; margin:0 auto; padding:40px 20px 80px; }
 
-  /* Q&A CARD - answered */
-  .qa-card {
-    background: #fff;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(26,39,68,0.08);
-    border-left: 4px solid var(--gold);
-    transition: transform 0.18s, box-shadow 0.18s;
-  }
-  .qa-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(26,39,68,0.13);
-  }
-  .qa-q {
-    background: var(--navy);
-    padding: 14px 18px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .qa-badge {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 14px;
-    font-weight: 900;
-    color: var(--gold);
-    flex-shrink: 0;
-    margin-top: 1px;
-    letter-spacing: 1px;
-  }
-  .qa-q-text {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.6;
-  }
-  .qa-a {
-    padding: 16px 18px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    background: #fff;
-  }
-  .qa-badge-a {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 14px;
-    font-weight: 900;
-    color: var(--mid);
-    flex-shrink: 0;
-    margin-top: 1px;
-    letter-spacing: 1px;
-  }
-  .qa-a-text {
-    color: #333;
-    font-size: 14px;
-    line-height: 1.75;
-  }
-  .qa-a-text strong { color: var(--navy); font-weight: 600; }
+  /* SECTION LABEL */
+  .section-label { display:flex; align-items:center; gap:12px; margin-bottom:28px; margin-top:48px; }
+  .section-label:first-of-type { margin-top:0; }
+  .section-num { width:36px; height:36px; background:var(--navy); color:var(--gold); font-family:'Noto Serif TC',serif; font-size:15px; font-weight:900; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .section-title { font-family:'Noto Serif TC',serif; font-size:16px; font-weight:600; color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:4px; flex:1; }
 
-  /* Q&A CARD - pending (no answer yet) */
-  .qa-card.pending {
-    border-left: 4px solid var(--pending-border);
-    background: var(--pending-bg);
-  }
-  .qa-card.pending .qa-q {
-    background: #4a3c10;
-  }
-  .qa-card.pending .qa-badge {
-    color: var(--gold-light);
-  }
-  .qa-pending {
-    padding: 14px 18px;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    background: var(--pending-bg);
-  }
-  .qa-pending-icon {
-    font-size: 18px;
-    flex-shrink: 0;
-  }
-  .qa-pending-text {
-    font-size: 13px;
-    color: var(--pending);
-    font-style: italic;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-  }
-  .pending-tag {
-    display: inline-block;
-    background: var(--pending-border);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 10px;
-    letter-spacing: 1px;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
+  /* Q&A CARD */
+  .qa-card { background:#fff; border-radius:8px; margin-bottom:20px; overflow:hidden; box-shadow:0 2px 12px rgba(26,39,68,0.08); border-left:4px solid var(--gold); transition:transform 0.18s,box-shadow 0.18s; }
+  .qa-card:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(26,39,68,0.13); }
+  .qa-q { background:var(--navy); padding:14px 18px; display:flex; gap:12px; align-items:flex-start; }
+  .qa-badge { font-family:'Noto Serif TC',serif; font-size:14px; font-weight:900; color:var(--gold); flex-shrink:0; margin-top:1px; letter-spacing:1px; }
+  .qa-q-text { color:#fff; font-size:14px; font-weight:500; line-height:1.6; }
+  .qa-a { padding:16px 18px; display:flex; gap:12px; align-items:flex-start; background:#fff; }
+  .qa-badge-a { font-family:'Noto Serif TC',serif; font-size:14px; font-weight:900; color:var(--mid); flex-shrink:0; margin-top:1px; letter-spacing:1px; }
+  .qa-a-text { color:#333; font-size:14px; line-height:1.75; }
+  .qa-a-text strong { color:var(--navy); font-weight:600; }
+
+  /* PENDING CARD */
+  .qa-card.pending { border-left:4px solid var(--pending-border); background:var(--pending-bg); }
+  .qa-card.pending .qa-q { background:#4a3c10; }
+  .qa-card.pending .qa-badge { color:var(--gold-light); }
+  .qa-pending { padding:14px 18px; display:flex; gap:12px; align-items:center; background:var(--pending-bg); }
+  .qa-pending-icon { font-size:18px; flex-shrink:0; }
+  .qa-pending-text { font-size:13px; color:var(--pending); font-style:italic; font-weight:500; }
+  .pending-tag { display:inline-block; background:var(--pending-border); color:#fff; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; letter-spacing:1px; margin-left:8px; vertical-align:middle; }
 
   /* ALERT BOX */
-  .alert-box {
-    background: #fff8f0;
-    border: 1.5px solid #e8a040;
-    border-radius: 8px;
-    padding: 16px 18px;
-    margin-bottom: 20px;
-  }
-  .alert-title {
-    font-weight: 700;
-    color: #c0392b;
-    font-size: 14px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .alert-box ul {
-    list-style: none;
-    padding: 0;
-  }
-  .alert-box li {
-    font-size: 13px;
-    color: #444;
-    line-height: 1.7;
-    padding: 3px 0 3px 16px;
-    position: relative;
-  }
-  .alert-box li::before {
-    content: '▸';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-    font-size: 12px;
-  }
-  .alert-box li strong { color: var(--navy); }
-
-  /* NOTE BOX */
-  .note-box {
-    background: #f0f4ff;
-    border: 1.5px solid #8899cc;
-    border-radius: 8px;
-    padding: 14px 18px;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: #334;
-    line-height: 1.75;
-  }
-  .note-box strong { color: var(--navy); }
-  .note-title {
-    font-weight: 700;
-    color: var(--navy);
-    font-size: 13px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  .alert-box { background:#fff8f0; border:1.5px solid #e8a040; border-radius:8px; padding:16px 18px; margin-bottom:20px; }
+  .alert-title { font-weight:700; color:#c0392b; font-size:14px; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+  .alert-box ul { list-style:none; padding:0; }
+  .alert-box li { font-size:13px; color:#444; line-height:1.7; padding:3px 0 3px 16px; position:relative; }
+  .alert-box li::before { content:'▸'; position:absolute; left:0; color:var(--gold); font-size:12px; }
+  .alert-box li strong { color:var(--navy); }
 
   /* INFO TABLE */
-  .info-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(26,39,68,0.08);
-    margin-bottom: 20px;
-    font-size: 13px;
-  }
-  .info-table th {
-    background: var(--navy);
-    color: var(--gold);
-    padding: 10px 14px;
-    font-weight: 600;
-    text-align: left;
-    letter-spacing: 0.5px;
-  }
-  .info-table td {
-    padding: 10px 14px;
-    color: #333;
-    border-bottom: 1px solid #f0eee8;
-    line-height: 1.6;
-  }
-  .info-table tr:last-child td { border-bottom: none; }
-  .info-table tr:nth-child(even) td { background: #faf8f4; }
+  .info-table { width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 12px rgba(26,39,68,0.08); margin-bottom:20px; font-size:13px; }
+  .info-table th { background:var(--navy); color:var(--gold); padding:10px 14px; font-weight:600; text-align:left; }
+  .info-table td { padding:10px 14px; color:#333; border-bottom:1px solid #f0eee8; line-height:1.6; }
+  .info-table tr:last-child td { border-bottom:none; }
+  .info-table tr:nth-child(even) td { background:#faf8f4; }
 
-  .source-info {
-    text-align: right;
-    margin-top: -12px;
-    margin-bottom: 24px;
-  }
-  .source-tag {
-    display: inline-block;
-    background: #eee;
-    color: #777;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    letter-spacing: 0.5px;
-  }
+  /* COMMENT SECTION */
+  .comment-section { background:var(--navy); padding:48px 24px 60px; }
+  .comment-inner { max-width:760px; margin:0 auto; }
+  .comment-header { display:flex; align-items:center; gap:12px; margin-bottom:28px; }
+  .comment-icon { width:36px; height:36px; background:var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+  .comment-title { font-family:'Noto Serif TC',serif; font-size:18px; font-weight:900; color:#fff; }
+  .comment-title span { color:var(--gold); }
+  .comment-subtitle { font-size:12px; color:rgba(255,255,255,0.5); margin-top:3px; }
+  .comment-form { background:rgba(255,255,255,0.06); border:1px solid rgba(201,168,76,0.3); border-radius:10px; padding:24px; margin-bottom:32px; }
+  .form-row { display:flex; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+  .form-group { flex:1; min-width:160px; display:flex; flex-direction:column; gap:6px; }
+  .form-group label { font-size:12px; color:var(--gold); font-weight:600; letter-spacing:0.5px; }
+  .form-group input,.form-group textarea,.form-group select { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:6px; padding:10px 12px; color:#fff; font-size:14px; font-family:'Noto Sans TC',sans-serif; outline:none; transition:border-color 0.2s; width:100%; }
+  .form-group input::placeholder,.form-group textarea::placeholder { color:rgba(255,255,255,0.3); }
+  .form-group input:focus,.form-group textarea:focus,.form-group select:focus { border-color:var(--gold); }
+  .form-group select option { background:var(--navy); color:#fff; }
+  .form-group textarea { resize:vertical; min-height:90px; }
+  .submit-btn { background:var(--gold); color:var(--navy); border:none; border-radius:6px; padding:11px 28px; font-size:14px; font-weight:700; font-family:'Noto Sans TC',sans-serif; cursor:pointer; transition:background 0.2s,transform 0.15s; letter-spacing:0.5px; }
+  .submit-btn:hover { background:var(--gold-light); transform:translateY(-1px); }
+  .submit-btn:disabled { opacity:0.5; cursor:not-allowed; }
+  .form-msg { font-size:13px; margin-top:10px; min-height:20px; color:#7ddc9a; font-weight:500; }
+  .form-msg.error { color:#ff8080; }
+  .comment-list-title { font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:16px; }
+  .comment-list-title span { color:var(--gold); font-weight:700; }
+  .comment-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:16px 18px; margin-bottom:14px; animation:fadeIn 0.3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .comment-meta { display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+  .comment-name { color:var(--gold); font-weight:700; font-size:13px; }
+  .comment-region { background:rgba(201,168,76,0.15); color:var(--gold-light); font-size:11px; padding:1px 8px; border-radius:8px; }
+  .comment-time { color:rgba(255,255,255,0.3); font-size:11px; margin-left:auto; }
+  .comment-text { color:rgba(255,255,255,0.85); font-size:14px; line-height:1.7; }
+  .no-comments { text-align:center; color:rgba(255,255,255,0.3); font-size:13px; padding:32px 0; }
+  .loading-comments { text-align:center; color:rgba(255,255,255,0.4); font-size:13px; padding:20px 0; }
 
-  footer {
-    background: var(--navy);
-    color: rgba(255,255,255,0.45);
-    text-align: center;
-    padding: 20px;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-  }
+  footer { background:#0f1929; color:rgba(255,255,255,0.35); text-align:center; padding:20px; font-size:12px; letter-spacing:0.5px; }
 </style>
 </head>
 <body>
@@ -354,12 +137,24 @@
   ⚠️ <strong>重要提示：</strong>個資保護是全民共識，補教業者不能落後！違反個資法將面臨行政及刑事雙重處罰。
 </div>
 
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" onclick="switchTab('tab-qa', this)">📋 Q&A 問答</button>
+    <button class="tab-btn" onclick="switchTab('tab-penalty', this)">⚠️ 罰則說明</button>
+    <button class="tab-btn" onclick="switchTab('tab-training', this)">🎓 種子教官</button>
+    <button class="tab-btn" onclick="switchTab('tab-msg', this)">💬 留言提問</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ TAB 1: Q&A ═══════════════════════════════ -->
+<div id="tab-qa" class="tab-panel active">
 <main>
 
-  <!-- SECTION 1 -->
+  <!-- 區塊 A：個資計畫申請 -->
   <div class="section-label">
     <div class="section-num">一</div>
-    <div class="section-title">個資計畫與申請相關</div>
+    <div class="section-title">個資計畫申請與實施進度</div>
   </div>
 
   <div class="qa-card">
@@ -371,20 +166,9 @@
       <div class="qa-badge-a">A</div>
       <div class="qa-a-text">
         112 年起教育部從七都（新竹縣加新竹市）開始，每年抽四家補習班加一家課後照顧中心。<br><br>
-        <strong>115 年起增加為 15 縣市</strong>（也是抽查 4+1），只有雲林、南投、台東、連江、金門今年不用。<br><br>
-        預計明年全面實施，<strong>每縣市 50 家，三年內全國完成</strong>。<strong>第四年開始有罰則</strong>。
+        <strong>115 年起增加為 15 縣市</strong>（抽查 4+1），只有雲林、南投、台東、連江、金門今年不用。<br><br>
+        預計明年全面實施，<strong>每縣市 50 家，三年內全國完成，第四年開始有罰則</strong>。
       </div>
-    </div>
-  </div>
-
-  <div class="qa-card">
-    <div class="qa-q">
-      <div class="qa-badge">Q</div>
-      <div class="qa-q-text">罰則標準？</div>
-    </div>
-    <div class="qa-a">
-      <div class="qa-badge-a">A</div>
-      <div class="qa-a-text">依照個人資料實施維護法之罰則行使之。</div>
     </div>
   </div>
 
@@ -417,10 +201,10 @@
     </div>
   </div>
 
-  <!-- SECTION 2 -->
+  <!-- 區塊 B：補習班規模分類 + 小型輔導機制（合併） -->
   <div class="section-label">
     <div class="section-num">二</div>
-    <div class="section-title">補習班規模分類</div>
+    <div class="section-title">補習班規模分類與小型輔導機制</div>
   </div>
 
   <div class="qa-card pending">
@@ -432,12 +216,6 @@
       <div class="qa-pending-icon">🕐</div>
       <div class="qa-pending-text">此問題已請老師說明，依現行法令界定標準待回覆中。</div>
     </div>
-  </div>
-
-  <!-- SECTION 3 -->
-  <div class="section-label">
-    <div class="section-num">三</div>
-    <div class="section-title">小型補習班輔導機制（翁教授建議）</div>
   </div>
 
   <div class="qa-card">
@@ -455,29 +233,31 @@
     </div>
   </div>
 
-  <!-- SECTION 4 -->
+</main>
+</div>
+
+<!-- ═══════════════════════════════ TAB 2: 罰則 ═══════════════════════════════ -->
+<div id="tab-penalty" class="tab-panel">
+<main>
+
   <div class="section-label">
-    <div class="section-num">四</div>
-    <div class="section-title">種子教官受訓</div>
+    <div class="section-num">一</div>
+    <div class="section-title">罰則標準與行政處罰</div>
   </div>
 
   <div class="qa-card">
     <div class="qa-q">
       <div class="qa-badge">Q</div>
-      <div class="qa-q-text">種子教官三天受訓時間為何？</div>
+      <div class="qa-q-text">罰則標準？</div>
     </div>
     <div class="qa-a">
       <div class="qa-badge-a">A</div>
-      <div class="qa-a-text">
-        種子教官<strong>連續受訓三天</strong>，每天八點到下午五點。<br>
-        最後一天有考試，<strong>通過者頒發聘用證書</strong>。
-      </div>
+      <div class="qa-a-text">依照個人資料實施維護法之罰則行使之。詳細金額如下方說明。</div>
     </div>
   </div>
 
-  <!-- SECTION 5 -->
-  <div class="section-label">
-    <div class="section-num">五</div>
+  <div class="section-label" style="margin-top:8px">
+    <div class="section-num">二</div>
     <div class="section-title">行政處罰與民事賠償說明</div>
   </div>
 
@@ -498,12 +278,189 @@
     </ul>
   </div>
 
+</main>
+</div>
+
+<!-- ═══════════════════════════════ TAB 3: 種子教官 ═══════════════════════════════ -->
+<div id="tab-training" class="tab-panel">
+<main>
+
+  <div class="section-label">
+    <div class="section-num">一</div>
+    <div class="section-title">種子教官受訓相關</div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">種子教官三天受訓時間為何？</div>
+    </div>
+    <div class="qa-a">
+      <div class="qa-badge-a">A</div>
+      <div class="qa-a-text">
+        種子教官<strong>連續受訓三天</strong>，每天八點到下午五點。<br>
+        最後一天有考試，<strong>通過者頒發聘用證書</strong>。
+      </div>
+    </div>
+  </div>
 
 </main>
+</div>
+
+<!-- ═══════════════════════════════ TAB 4: 留言區 ═══════════════════════════════ -->
+<div id="tab-msg" class="tab-panel">
+<section class="comment-section" style="min-height:60vh">
+  <div class="comment-inner">
+    <div class="comment-header">
+      <div class="comment-icon">💬</div>
+      <div>
+        <div class="comment-title">補教業者<span>問題留言區</span></div>
+        <div class="comment-subtitle">歡迎全國補教業者提問，提問後管理員將透過 Email 盡快回覆</div>
+      </div>
+    </div>
+
+    <div class="comment-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>姓名 / 補習班名稱 *</label>
+          <input type="text" id="inp-name" placeholder="例：王小明 / 竹北文理補習班" maxlength="50">
+        </div>
+        <div class="form-group">
+          <label>所在縣市 *</label>
+          <select id="inp-region">
+            <option value="">請選擇縣市</option>
+            <option>台北市</option><option>新北市</option><option>桃園市</option>
+            <option>台中市</option><option>台南市</option><option>高雄市</option>
+            <option>基隆市</option><option>新竹市</option><option>新竹縣</option>
+            <option>苗栗縣</option><option>彰化縣</option><option>南投縣</option>
+            <option>雲林縣</option><option>嘉義市</option><option>嘉義縣</option>
+            <option>屏東縣</option><option>宜蘭縣</option><option>花蓮縣</option>
+            <option>台東縣</option><option>澎湖縣</option><option>金門縣</option>
+            <option>連江縣</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>問題內容 *</label>
+        <textarea id="inp-message" placeholder="請輸入您的問題或意見..."></textarea>
+      </div>
+      <button class="submit-btn" id="submit-btn" onclick="submitComment()">送出留言</button>
+      <div class="form-msg" id="form-msg"></div>
+    </div>
+
+    <div class="comment-list-title">已收到的提問 <span id="comment-count">0</span> 則</div>
+    <div id="comment-list"><div class="no-comments">目前尚無留言，歡迎第一位提問！</div></div>
+  </div>
+</section>
+</div>
 
 <footer>
   本頁資料彙整自教育部公文及 LINE 對話記錄 ／ 僅供內部參考
 </footer>
+
+<script>
+  // ── Tab switching ──
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    if (id === 'tab-msg') renderComments();
+  }
+  window.switchTab = switchTab;
+
+  // ── Helpers ──
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function formatTime() {
+    const n = new Date();
+    return n.getFullYear()+'/'+String(n.getMonth()+1).padStart(2,'0')+'/'+String(n.getDate()).padStart(2,'0')+' '+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+  }
+
+  // ── Storage: localStorage (per-browser) + Formspree for email ──
+  // For true cross-device sharing, a backend is required.
+  // This version stores locally and emails you via Formspree.
+  const FORMSPREE = 'https://formspree.io/f/xkoelezn';
+  const STORAGE_KEY = 'budiao_qa_comments_v2';
+
+  function loadComments() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; }
+  }
+  function saveLocal(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
+
+  function renderComments() {
+    const el = document.getElementById('comment-list');
+    if (!el) return;
+    const list = loadComments();
+    document.getElementById('comment-count').textContent = list.length;
+    if (list.length === 0) {
+      el.innerHTML = '<div class="no-comments">目前尚無留言，歡迎第一位提問！</div>';
+      return;
+    }
+    el.innerHTML = [...list].reverse().map(c => `
+      <div class="comment-card">
+        <div class="comment-meta">
+          <span class="comment-name">${escHtml(c.name)}</span>
+          <span class="comment-region">${escHtml(c.region)}</span>
+          <span class="comment-time">${escHtml(c.time)}</span>
+        </div>
+        <div class="comment-text">${escHtml(c.message).replace(/\n/g,'<br>')}</div>
+      </div>`).join('');
+  }
+  window.renderComments = renderComments;
+
+  async function submitComment() {
+    const name = document.getElementById('inp-name').value.trim();
+    const region = document.getElementById('inp-region').value;
+    const message = document.getElementById('inp-message').value.trim();
+    const msgEl = document.getElementById('form-msg');
+    const btn = document.getElementById('submit-btn');
+
+    msgEl.className = 'form-msg';
+    if (!name) { msgEl.className='form-msg error'; msgEl.textContent='請填寫姓名或補習班名稱'; return; }
+    if (!region) { msgEl.className='form-msg error'; msgEl.textContent='請選擇所在縣市'; return; }
+    if (!message) { msgEl.className='form-msg error'; msgEl.textContent='請填寫問題內容'; return; }
+
+    btn.disabled = true;
+    msgEl.textContent = '送出中...';
+
+    try {
+      const res = await fetch(FORMSPREE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name, region, message,
+          _subject: '【補教個資提問】' + name + '（' + region + '）'
+        })
+      });
+
+      if (res.ok) {
+        const list = loadComments();
+        list.push({ name, region, message, time: formatTime() });
+        saveLocal(list);
+        renderComments();
+        document.getElementById('inp-name').value = '';
+        document.getElementById('inp-region').value = '';
+        document.getElementById('inp-message').value = '';
+        msgEl.textContent = '✓ 問題已送出！管理員收到 Email 後將盡快回覆。';
+      } else {
+        const d = await res.json();
+        msgEl.className = 'form-msg error';
+        msgEl.textContent = '送出失敗：' + (d.error || '請稍後再試');
+      }
+    } catch(e) {
+      msgEl.className = 'form-msg error';
+      msgEl.textContent = '網路錯誤，請確認網路連線後再試。';
+    }
+    btn.disabled = false;
+  }
+  window.submitComment = submitComment;
+
+  renderComments();
+</script>
 
 </body>
 </html>
