@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>補教個資安全維護 Q&A 彙整</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --navy: #1a2744;
+    --gold: #c9a84c;
+    --gold-light: #f0d88a;
+    --cream: #faf6ef;
+    --red: #c0392b;
+    --dark: #0f1929;
+    --mid: #2e3f6e;
+    --pending: #7a6a3a;
+    --pending-bg: #fdf8ec;
+    --pending-border: #d4b84a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--navy);
+    padding: 48px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.12);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -40px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.08);
+  }
+  .header-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  header h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  header h1 span { color: var(--gold); }
+  header p.subtitle {
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .notice {
+    background: var(--red);
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .notice strong { font-weight: 700; }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    margin-top: 48px;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+  .section-num {
+    width: 36px; height: 36px;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    font-weight: 900;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 4px;
+    flex: 1;
+  }
+
+  /* Q&A CARD - answered */
+  .qa-card {
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(26,39,68,0.08);
+    border-left: 4px solid var(--gold);
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .qa-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(26,39,68,0.13);
+  }
+  .qa-q {
+    background: var(--navy);
+    padding: 14px 18px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .qa-badge {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 1px;
+    letter-spacing: 1px;
+  }
+  .qa-q-text {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  .qa-a {
+    padding: 16px 18px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: #fff;
+  }
+  .qa-badge-a {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--mid);
+    flex-shrink: 0;
+    margin-top: 1px;
+    letter-spacing: 1px;
+  }
+  .qa-a-text {
+    color: #333;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .qa-a-text strong { color: var(--navy); font-weight: 600; }
+
+  /* Q&A CARD - pending (no answer yet) */
+  .qa-card.pending {
+    border-left: 4px solid var(--pending-border);
+    background: var(--pending-bg);
+  }
+  .qa-card.pending .qa-q {
+    background: #4a3c10;
+  }
+  .qa-card.pending .qa-badge {
+    color: var(--gold-light);
+  }
+  .qa-pending {
+    padding: 14px 18px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--pending-bg);
+  }
+  .qa-pending-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .qa-pending-text {
+    font-size: 13px;
+    color: var(--pending);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+  .pending-tag {
+    display: inline-block;
+    background: var(--pending-border);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* ALERT BOX */
+  .alert-box {
+    background: #fff8f0;
+    border: 1.5px solid #e8a040;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+  }
+  .alert-title {
+    font-weight: 700;
+    color: #c0392b;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .alert-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .alert-box li {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.7;
+    padding: 3px 0 3px 16px;
+    position: relative;
+  }
+  .alert-box li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  .alert-box li strong { color: var(--navy); }
+
+  /* NOTE BOX */
+  .note-box {
+    background: #f0f4ff;
+    border: 1.5px solid #8899cc;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #334;
+    line-height: 1.75;
+  }
+  .note-box strong { color: var(--navy); }
+  .note-title {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 13px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* INFO TABLE */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(26,39,68,0.08);
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  .info-table th {
+    background: var(--navy);
+    color: var(--gold);
+    padding: 10px 14px;
+    font-weight: 600;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+  .info-table td {
+    padding: 10px 14px;
+    color: #333;
+    border-bottom: 1px solid #f0eee8;
+    line-height: 1.6;
+  }
+  .info-table tr:last-child td { border-bottom: none; }
+  .info-table tr:nth-child(even) td { background: #faf8f4; }
+
+  .source-info {
+    text-align: right;
+    margin-top: -12px;
+    margin-bottom: 24px;
+  }
+  .source-tag {
+    display: inline-block;
+    background: #eee;
+    color: #777;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">官方文件彙整</div>
+  <h1>補教個資安全維護<br><span>Q&A 問答彙整</span></h1>
+  <p class="subtitle">教育部主管目的事業所轄非公務機關 115 年度個人資料保護行政檢查計畫</p>
+</header>
+
+<div class="notice">
+  ⚠️ <strong>重要提示：</strong>個資保護是全民共識，補教業者不能落後！違反個資法將面臨行政及刑事雙重處罰。
+</div>
+
+<main>
+
+  <!-- SECTION 1 -->
+  <div class="section-label">
+    <div class="section-num">一</div>
+    <div class="section-title">個資計畫與申請相關</div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">全國計劃書預計何時全面實施？</div>
+    </div>
+    <div class="qa-a">
+      <div class="qa-badge-a">A</div>
+      <div class="qa-a-text">
+        112 年起教育部從七都（新竹縣加新竹市）開始，每年抽四家補習班加一家課後照顧中心。<br><br>
+        <strong>115 年起增加為 15 縣市</strong>（也是抽查 4+1），只有雲林、南投、台東、連江、金門今年不用。<br><br>
+        預計明年全面實施，<strong>每縣市 50 家，三年內全國完成</strong>。<strong>第四年開始有罰則</strong>。
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">罰則標準？</div>
+    </div>
+    <div class="qa-a">
+      <div class="qa-badge-a">A</div>
+      <div class="qa-a-text">依照個人資料實施維護法之罰則行使之。</div>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">116 年起各縣市抽查補習班個資法的比例為多少？</div>
+    </div>
+    <div class="qa-a">
+      <div class="qa-badge-a">A</div>
+      <div class="qa-a-text">
+        規模依教育部定義，<strong>100 人以下為小型補習班</strong>，以填寫計劃書暨自評表資料為主。<br><br>
+        課程安排：每場人數一位講師 20 人，雙講師 30 人，一個月 10 場（依實際情況調整）。<br><br>
+        教育部已調整實地訪視費用為 <strong>8,000 元</strong>（原 6,000 元），夥伴建議採 <strong>1 萬元</strong>較佳，以免破壞行情，仍比外部驗證公司便宜。
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">100 人以下的標準是否適用補習班？當初立案時的各班核准人數總計如何認定？</div>
+    </div>
+    <div class="qa-a">
+      <div class="qa-badge-a">A</div>
+      <div class="qa-a-text">
+        <strong>就依立案核准人數認定。</strong><br>
+        因為實際輔導上很難界定，不過實際輔導後就知道其個資保護範圍。
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-label">
+    <div class="section-num">二</div>
+    <div class="section-title">補習班規模分類</div>
+  </div>
+
+  <div class="qa-card pending">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">何謂小型補習班、中型補習班、大型補習班？依現行法令如何界定？<span class="pending-tag">待解答</span></div>
+    </div>
+    <div class="qa-pending">
+      <div class="qa-pending-icon">🕐</div>
+      <div class="qa-pending-text">此問題已請老師說明，依現行法令界定標準待回覆中。</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section-label">
+    <div class="section-num">三</div>
+    <div class="section-title">小型補習班輔導機制（翁教授建議）</div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">小型補習班由於個資法書寫容易，翁教授建議如何推動？</div>
+    </div>
+    <div class="qa-a">
+      <div class="qa-badge-a">A</div>
+      <div class="qa-a-text">
+        翁教授建議以<strong>各地方協會調查</strong>合乎法規之小型補習班，開班授課。<br><br>
+        再由翁老師<strong>派遣稽核員前往教學</strong>，稽核員所需費用由翁老師提供說明，<strong>經費由各地方協會支出</strong>。<br><br>
+        如有需要，請各地方縣市政府提供標準之內的補習班名單。
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section-label">
+    <div class="section-num">四</div>
+    <div class="section-title">種子教官受訓</div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">種子教官三天受訓時間為何？</div>
+    </div>
+    <div class="qa-a">
+      <div class="qa-badge-a">A</div>
+      <div class="qa-a-text">
+        種子教官<strong>連續受訓三天</strong>，每天八點到下午五點。<br>
+        最後一天有考試，<strong>通過者頒發聘用證書</strong>。
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section-label">
+    <div class="section-num">五</div>
+    <div class="section-title">行政處罰與民事賠償說明</div>
+  </div>
+
+  <div class="alert-box">
+    <div class="alert-title">⚠ 行政處罰（罰鍰）</div>
+    <ul>
+      <li><strong>一般違規：</strong>未採取適當安全措施導致外洩，可處 <strong>2 萬至 200 萬元</strong>罰鍰；經期限未改善者，罰鍰加重為 <strong>15 萬至 1,500 萬元</strong>。</li>
+      <li><strong>規避稽查：</strong>規避、妨礙或拒絕主管機關稽查，可處 <strong>2 萬至 20 萬元</strong>罰鍰。</li>
+    </ul>
+  </div>
+
+  <div class="alert-box">
+    <div class="alert-title">⚠ 民事損害賠償</div>
+    <ul>
+      <li>當事人可用「消費者保護法」請求損害賠償。</li>
+      <li>賠償金額：法官實際損害難以證明，<strong>每一事件每件 500 元至 2 萬元</strong>計算。</li>
+      <li>賠償上限：同一事件情節重大者，總賠償總額最高可達 <strong>2 億元</strong>。</li>
+    </ul>
+  </div>
+
+
+</main>
+
+<footer>
+  本頁資料彙整自教育部公文及 LINE 對話記錄 ／ 僅供內部參考
+</footer>
+
+</body>
+</html>
