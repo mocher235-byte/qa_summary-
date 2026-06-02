@@ -183,7 +183,7 @@
       <div class="qa-a-text">
         規模依教育部定義，<strong>100 人以下為小型補習班</strong>，以填寫計劃書暨自評表資料為主。<br><br>
         課程安排：每場人數一位講師 20 人，雙講師 30 人，一個月 10 場（依實際情況調整）。<br><br>
-        教育部已調整實地訪視費用為 <strong>8,000 元</strong>（原 6,000 元），夥伴建議採 <strong>1 萬元</strong>較佳，以免破壞行情，仍比外部驗證公司便宜。
+        實地訪視費用為 <strong>10,000 元</strong>。
       </div>
     </div>
   </div>
@@ -198,6 +198,35 @@
       <div class="qa-a-text">
         <strong>就依立案核准人數認定。</strong><br>
         因為實際輔導上很難界定，不過實際輔導後就知道其個資保護範圍。
+      </div>
+    </div>
+  </div>
+
+
+  <div class="qa-card">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">各個縣市個資法多久之內要完成？</div>
+    </div>
+    <div class="qa-a">
+      <div class="qa-badge-a">A</div>
+      <div class="qa-a-text">
+        預計<strong>分五年</strong>，每年各縣市以 <strong>20% 的數量</strong>逐步完成。
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">
+      <div class="qa-badge">Q</div>
+      <div class="qa-q-text">個資法需繳交幾份？</div>
+    </div>
+    <div class="qa-a">
+      <div class="qa-badge-a">A</div>
+      <div class="qa-a-text">
+        各補教業者僅需繳交<strong>兩份</strong>：<br>
+        　• 一份<strong>自留</strong><br>
+        　• 一份繳交<strong>稽核員審查訪視</strong>，通過之後交至教育局備查。
       </div>
     </div>
   </div>
@@ -457,15 +486,20 @@
       </div>
     </div>
 
-    <div class="comment-form">
+    <!-- 加上 action & method 以便相容 HTML 標準與 AJAX 手動提交 -->
+    <form class="comment-form" id="qa-form" action="https://formspree.io/f/xkoelezn" method="POST" onsubmit="submitComment(event)">
       <div class="form-row">
         <div class="form-group">
-          <label>姓名 / 補習班名稱 *</label>
-          <input type="text" id="inp-name" placeholder="例：王小明 / 竹北文理補習班" maxlength="50">
+          <label for="inp-name">姓名 / 補習班名稱 *</label>
+          <input type="text" id="inp-name" name="name" placeholder="例：王小明 / 竹北文理補習班" maxlength="50" required>
         </div>
         <div class="form-group">
-          <label>所在縣市 *</label>
-          <select id="inp-region">
+          <label for="inp-email">聯絡電子信箱 (不公開顯示) *</label>
+          <input type="email" id="inp-email" name="email" placeholder="例：service@cramschool.com" required>
+        </div>
+        <div class="form-group">
+          <label for="inp-region">所在縣市 *</label>
+          <select id="inp-region" name="region" required>
             <option value="">請選擇縣市</option>
             <option>台北市</option><option>新北市</option><option>桃園市</option>
             <option>台中市</option><option>台南市</option><option>高雄市</option>
@@ -479,12 +513,12 @@
         </div>
       </div>
       <div class="form-group" style="margin-bottom:14px">
-        <label>問題內容 *</label>
-        <textarea id="inp-message" placeholder="請輸入您的問題或意見..."></textarea>
+        <label for="inp-message">問題內容 *</label>
+        <textarea id="inp-message" name="message" placeholder="請輸入您的問題或意見..." required></textarea>
       </div>
-      <button class="submit-btn" id="submit-btn" onclick="submitComment()">送出留言</button>
+      <button type="submit" class="submit-btn" id="submit-btn">送出留言</button>
       <div class="form-msg" id="form-msg"></div>
-    </div>
+    </form>
 
     <div class="comment-list-title">已收到的提問 <span id="comment-count">0</span> 則</div>
     <div id="comment-list"><div class="no-comments">目前尚無留言，歡迎第一位提問！</div></div>
@@ -517,8 +551,6 @@
   }
 
   // ── Storage: localStorage (per-browser) + Formspree for email ──
-  // For true cross-device sharing, a backend is required.
-  // This version stores locally and emails you via Formspree.
   const FORMSPREE = 'https://formspree.io/f/xkoelezn';
   const STORAGE_KEY = 'budiao_qa_comments_v2';
 
@@ -529,6 +561,7 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
   }
 
+  // 渲染留言清單（為符合個資法，公開留言區不顯示填寫的 Email 欄位）
   function renderComments() {
     const el = document.getElementById('comment-list');
     if (!el) return;
@@ -550,8 +583,11 @@
   }
   window.renderComments = renderComments;
 
-  async function submitComment() {
+  async function submitComment(event) {
+    if (event) event.preventDefault(); // 阻止網頁跳轉，使用 AJAX 提交
+
     const name = document.getElementById('inp-name').value.trim();
+    const email = document.getElementById('inp-email').value.trim();
     const region = document.getElementById('inp-region').value;
     const message = document.getElementById('inp-message').value.trim();
     const msgEl = document.getElementById('form-msg');
@@ -559,6 +595,7 @@
 
     msgEl.className = 'form-msg';
     if (!name) { msgEl.className='form-msg error'; msgEl.textContent='請填寫姓名或補習班名稱'; return; }
+    if (!email) { msgEl.className='form-msg error'; msgEl.textContent='請填寫聯絡電子信箱'; return; }
     if (!region) { msgEl.className='form-msg error'; msgEl.textContent='請選擇所在縣市'; return; }
     if (!message) { msgEl.className='form-msg error'; msgEl.textContent='請填寫問題內容'; return; }
 
@@ -570,19 +607,28 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          name, region, message,
+          name, 
+          email, // 自動觸發 Formspree 的 Reply-to
+          region, 
+          message,
           _subject: '【補教個資提問】' + name + '（' + region + '）'
         })
       });
 
       if (res.ok) {
         const list = loadComments();
-        list.push({ name, region, message, time: formatTime() });
+        // 將留言本地存檔（供本地預覽），且包含 email
+        list.push({ name, region, message, email, time: formatTime() });
         saveLocal(list);
         renderComments();
+        
+        // 清空表單
         document.getElementById('inp-name').value = '';
+        document.getElementById('inp-email').value = '';
         document.getElementById('inp-region').value = '';
         document.getElementById('inp-message').value = '';
+        
+        msgEl.className = 'form-msg';
         msgEl.textContent = '✓ 問題已送出！管理員收到 Email 後將盡快回覆。';
       } else {
         const d = await res.json();
